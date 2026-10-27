@@ -187,6 +187,58 @@ final class Test_TextBasedRenderer: XCTestCase {
         )
     }
 
+    func testConditionalImports() throws {
+        let condition = "canImport(FoundationEssentials)"
+        let foundationTypes = ["URL", "Data", "Date"]
+        try _test(
+            [
+                ImportDescription(
+                    moduleName: "FoundationEssentials",
+                    moduleTypes: foundationTypes.map { "struct FoundationEssentials.\($0)" },
+                    accessModifier: .package,
+                    conditionalCompilationCondition: condition
+                ),
+                ImportDescription(
+                    moduleName: "Foundation",
+                    moduleTypes: foundationTypes.map { "struct Foundation.\($0)" },
+                    accessModifier: .package,
+                    conditionalCompilationCondition: condition,
+                    isConditionalCompilationElseBranch: true
+                ),
+            ],
+            renderedBy: TextBasedRenderer.renderImports,
+            rendersAs: #"""
+                #if canImport(FoundationEssentials)
+                #if compiler(>=6.4)
+                @diagnose(UnusedImportAccess, as: ignored)
+                #endif
+                package import struct FoundationEssentials.URL
+                #if compiler(>=6.4)
+                @diagnose(UnusedImportAccess, as: ignored)
+                #endif
+                package import struct FoundationEssentials.Data
+                #if compiler(>=6.4)
+                @diagnose(UnusedImportAccess, as: ignored)
+                #endif
+                package import struct FoundationEssentials.Date
+                #else
+                #if compiler(>=6.4)
+                @diagnose(UnusedImportAccess, as: ignored)
+                #endif
+                package import struct Foundation.URL
+                #if compiler(>=6.4)
+                @diagnose(UnusedImportAccess, as: ignored)
+                #endif
+                package import struct Foundation.Data
+                #if compiler(>=6.4)
+                @diagnose(UnusedImportAccess, as: ignored)
+                #endif
+                package import struct Foundation.Date
+                #endif
+                """#
+        )
+    }
+
     func testAccessModifiers() throws {
         try _test(
             .public,

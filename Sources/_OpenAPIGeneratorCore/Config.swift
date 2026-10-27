@@ -26,12 +26,6 @@ public enum NamingStrategy: String, Sendable, Codable, Equatable, CaseIterable {
     case idiomatic
 }
 
-/// The Foundation module imported by generated code.
-public enum FoundationModule: String, Sendable, Codable, Equatable, CaseIterable {
-    case foundation = "Foundation"
-    case foundationEssentials = "FoundationEssentials"
-}
-
 /// A structure that contains configuration options for a single execution
 /// of the generator pipeline run.
 ///
@@ -62,14 +56,14 @@ public struct Config: Sendable {
     /// Defaults to `defensive`.
     public var namingStrategy: NamingStrategy
 
-    /// The Foundation module imported by generated code.
-    public var foundationModule: FoundationModule
+    /// Whether to prefer FoundationEssentials when it is available.
+    public var preferFoundationEssentials: Bool
 
     /// The default naming strategy.
     public static let defaultNamingStrategy: NamingStrategy = .defensive
 
-    /// The default Foundation module.
-    public static let defaultFoundationModule: FoundationModule = .foundation
+    /// The default preference for FoundationEssentials.
+    public static let defaultPreferFoundationEssentials: Bool = false
 
     /// A map of OpenAPI identifiers to desired Swift identifiers, used instead of the naming strategy.
     public var nameOverrides: [String: String]
@@ -88,7 +82,7 @@ public struct Config: Sendable {
     ///   - filter: Filter to apply to the OpenAPI document before generation.
     ///   - namingStrategy: The naming strategy to use for deriving Swift identifiers from OpenAPI identifiers.
     ///     Defaults to `defensive`.
-    ///   - foundationModule: The Foundation module imported by generated code.
+    ///   - preferFoundationEssentials: Whether to prefer FoundationEssentials when it is available.
     ///   - nameOverrides: A map of OpenAPI identifiers to desired Swift identifiers, used instead
     ///     of the naming strategy.
     ///   - typeOverrides: A map of OpenAPI schema names to desired custom type names.
@@ -100,7 +94,7 @@ public struct Config: Sendable {
         additionalFileComments: [String] = [],
         filter: DocumentFilter? = nil,
         namingStrategy: NamingStrategy,
-        foundationModule: FoundationModule = defaultFoundationModule,
+        preferFoundationEssentials: Bool = defaultPreferFoundationEssentials,
         nameOverrides: [String: String] = [:],
         typeOverrides: TypeOverrides = .init(),
         featureFlags: FeatureFlags = []
@@ -111,7 +105,7 @@ public struct Config: Sendable {
         self.additionalFileComments = additionalFileComments
         self.filter = filter
         self.namingStrategy = namingStrategy
-        self.foundationModule = foundationModule
+        self.preferFoundationEssentials = preferFoundationEssentials
         self.nameOverrides = nameOverrides
         self.typeOverrides = typeOverrides
         self.featureFlags = featureFlags

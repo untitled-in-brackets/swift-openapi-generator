@@ -32,7 +32,7 @@ class Test_Core: XCTestCase {
         nameOverrides: [String: String] = [:],
         schemaOverrides: [String: String] = [:],
         featureFlags: FeatureFlags = [],
-        foundationModule: FoundationModule = .foundation
+        preferFoundationEssentials: Bool = false
     ) -> TypesFileTranslator {
         makeTypesTranslator(
             components: components,
@@ -41,7 +41,7 @@ class Test_Core: XCTestCase {
             nameOverrides: nameOverrides,
             schemaOverrides: schemaOverrides,
             featureFlags: featureFlags,
-            foundationModule: foundationModule
+            preferFoundationEssentials: preferFoundationEssentials
         )
     }
 
@@ -52,7 +52,7 @@ class Test_Core: XCTestCase {
         nameOverrides: [String: String] = [:],
         schemaOverrides: [String: String] = [:],
         featureFlags: FeatureFlags = [],
-        foundationModule: FoundationModule = .foundation
+        preferFoundationEssentials: Bool = false
     ) -> TypesFileTranslator {
         TypesFileTranslator(
             config: makeConfig(
@@ -60,7 +60,7 @@ class Test_Core: XCTestCase {
                 nameOverrides: nameOverrides,
                 schemaOverrides: schemaOverrides,
                 featureFlags: featureFlags,
-                foundationModule: foundationModule
+                preferFoundationEssentials: preferFoundationEssentials
             ),
             diagnostics: diagnostics,
             components: components
@@ -72,13 +72,13 @@ class Test_Core: XCTestCase {
         nameOverrides: [String: String] = [:],
         schemaOverrides: [String: String] = [:],
         featureFlags: FeatureFlags = [],
-        foundationModule: FoundationModule = .foundation
+        preferFoundationEssentials: Bool = false
     ) -> Config {
         .init(
             mode: .types,
             access: Config.defaultAccessModifier,
             namingStrategy: namingStrategy,
-            foundationModule: foundationModule,
+            preferFoundationEssentials: preferFoundationEssentials,
             nameOverrides: nameOverrides,
             typeOverrides: TypeOverrides(schemas: schemaOverrides),
             featureFlags: featureFlags

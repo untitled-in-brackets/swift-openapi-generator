@@ -144,7 +144,39 @@ struct TextBasedRenderer: RendererProtocol {
     }
 
     /// Renders the specified import statements.
-    func renderImports(_ imports: [ImportDescription]?) { (imports ?? []).forEach(renderImport) }
+    func renderImports(_ imports: [ImportDescription]?) {
+        let imports = imports ?? []
+        var index = 0
+        while index < imports.count {
+            let description = imports[index]
+            guard let condition = description.conditionalCompilationCondition else {
+                precondition(!description.isConditionalCompilationElseBranch)
+                renderImport(description)
+                index += 1
+                continue
+            }
+            precondition(!description.isConditionalCompilationElseBranch)
+            writer.writeLine("#if \(condition)")
+            while index < imports.count, imports[index].conditionalCompilationCondition == condition,
+                !imports[index].isConditionalCompilationElseBranch
+            {
+                renderImport(imports[index])
+                index += 1
+            }
+            if index < imports.count, imports[index].conditionalCompilationCondition == condition,
+                imports[index].isConditionalCompilationElseBranch
+            {
+                writer.writeLine("#else")
+                while index < imports.count, imports[index].conditionalCompilationCondition == condition,
+                    imports[index].isConditionalCompilationElseBranch
+                {
+                    renderImport(imports[index])
+                    index += 1
+                }
+            }
+            writer.writeLine("#endif")
+        }
+    }
 
     /// Renders a single import statement.
     func renderImport(_ description: ImportDescription) {

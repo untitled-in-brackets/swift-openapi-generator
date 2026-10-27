@@ -29,10 +29,13 @@ final class Test_ConfigJSONSchema: XCTestCase {
         XCTAssertEqual(allowedValues(properties["generate"]?["items"]), Set(GeneratorMode.allCases.map(\.rawValue)))
         XCTAssertEqual(allowedValues(properties["featureFlags"]?["items"]), Set(FeatureFlag.allCases.map(\.rawValue)))
         XCTAssertEqual(allowedValues(properties["accessModifier"]), Set(AccessModifier.supportedValues.map(\.rawValue)))
-        XCTAssertEqual(allowedValues(properties["foundationModule"]), Set(FoundationModule.allCases.map(\.rawValue)))
+        XCTAssertEqual(properties["preferFoundationEssentials"]?["type"] as? String, "boolean")
         XCTAssertEqual(allowedValues(properties["namingStrategy"]), Set(NamingStrategy.allCases.map(\.rawValue)))
         XCTAssertEqual(properties["accessModifier"]?["default"] as? String, Config.defaultAccessModifier.rawValue)
-        XCTAssertEqual(properties["foundationModule"]?["default"] as? String, Config.defaultFoundationModule.rawValue)
+        XCTAssertEqual(
+            properties["preferFoundationEssentials"]?["default"] as? Bool,
+            Config.defaultPreferFoundationEssentials
+        )
         XCTAssertEqual(properties["namingStrategy"]?["default"] as? String, Config.defaultNamingStrategy.rawValue)
 
         func nestedKeys(_ key: String) -> Set<String>? {
@@ -85,6 +88,7 @@ final class Test_ConfigJSONSchema: XCTestCase {
         if let values = constValues(of: schema) { return values.first }
         switch schema["type"] as? String {
         case "string": return "value"
+        case "boolean": return schema["default"] as? Bool ?? false
         case "array": return [(schema["items"] as? [String: Any]).flatMap(sampleValue(for:)) ?? NSNull()]
         case "object":
             if let properties = schema["properties"] as? [String: [String: Any]] {

@@ -38,9 +38,8 @@ struct _GenerateOptions: ParsableArguments {
             "The strategy for converting OpenAPI names into Swift names. Default: \(Config.defaultNamingStrategy.rawValue)"
     ) var namingStrategy: NamingStrategy?
 
-    @Option(
-        help: "The Foundation module to import in generated code. Default: \(Config.defaultFoundationModule.rawValue)"
-    ) var foundationModule: FoundationModule?
+    @Flag(name: .long, help: "Prefer FoundationEssentials when available, falling back to Foundation.")
+    var preferFoundationEssentials = false
 
     @Option(help: "Additional import to add to all generated files.") var additionalImport: [String] = []
 
@@ -60,8 +59,6 @@ extension AccessModifier: ExpressibleByArgument {
     public static var allValueStrings: [String] { supportedValues.map(\.rawValue) }
 }
 extension NamingStrategy: ExpressibleByArgument {}
-extension FoundationModule: ExpressibleByArgument {}
-
 /// Executes a throwing operation and transforms file-not-found errors into user-friendly messages.
 ///
 /// - Parameters:
@@ -145,9 +142,9 @@ extension _GenerateOptions {
         return config?.namingStrategy ?? Config.defaultNamingStrategy
     }
 
-    /// Returns the Foundation module requested by the user.
-    func resolvedFoundationModule(_ config: _UserConfig?) -> FoundationModule {
-        foundationModule ?? config?.foundationModule ?? Config.defaultFoundationModule
+    /// Returns whether the user prefers FoundationEssentials when available.
+    func resolvedPreferFoundationEssentials(_ config: _UserConfig?) -> Bool {
+        preferFoundationEssentials || (config?.preferFoundationEssentials ?? Config.defaultPreferFoundationEssentials)
     }
 
     /// Returns the name overrides requested by the user.

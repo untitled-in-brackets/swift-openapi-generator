@@ -29,10 +29,10 @@ extension TypeName {
     /// Returns a type name for a type with the specified name in the given module.
     /// - Parameters:
     ///   - name: The name of the type.
-    ///   - module: The module containing the type.
+    ///   - unqualified: Whether to omit the Foundation module name.
     /// - Returns: A type name representing the specified type.
-    static func foundation(_ name: String, module: FoundationModule = .foundation) -> TypeName {
-        TypeName(swiftKeyPath: [module.rawValue, name])
+    static func foundation(_ name: String, unqualified: Bool = false) -> TypeName {
+        TypeName(swiftKeyPath: unqualified ? [name] : ["Foundation", name])
     }
 
     /// Returns a type name for a type with the specified name in the

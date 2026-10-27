@@ -47,6 +47,12 @@ struct ImportDescription: Equatable, Codable {
     /// `public import` or `package import` is not incorrectly emitted.
     var setsAccessModifier: Bool = true
 
+    /// The condition for an adjacent group of conditional imports.
+    var conditionalCompilationCondition: String? = nil
+
+    /// Whether the import is in the `#else` branch of its conditional group.
+    var isConditionalCompilationElseBranch: Bool = false
+
     /// Whether the compiler should be told to ignore this import being unused.
     ///
     /// The same imports are emitted into every generated file, so an access-level import is

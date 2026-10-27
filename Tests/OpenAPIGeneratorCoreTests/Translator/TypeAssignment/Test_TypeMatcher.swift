@@ -54,13 +54,10 @@ final class Test_TypeMatcher: Test_Core {
         }
     }
 
-    func testFoundationEssentialsModule() {
-        let matcher = makeTranslator(foundationModule: .foundationEssentials).typeMatcher
+    func testPreferFoundationEssentials() {
+        let matcher = makeTranslator(preferFoundationEssentials: true).typeMatcher
         let dateTimeSchema = JSONSchema.string(.init(format: .dateTime), .init())
-        XCTAssertEqual(
-            matcher.tryMatchBuiltinType(for: dateTimeSchema.value)?.fullyQualifiedSwiftName,
-            "FoundationEssentials.Date"
-        )
+        XCTAssertEqual(matcher.tryMatchBuiltinType(for: dateTimeSchema.value)?.fullyQualifiedSwiftName, "Date")
     }
 
     static let nonBuiltinTypes: [JSONSchema] = [
