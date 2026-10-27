@@ -190,6 +190,7 @@ struct TextBasedRenderer: RendererProtocol {
 
         func render(importing name: String) {
             if description.ignoresUnusedImportAccess {
+                writer.writeLine("// swift-format-ignore")
                 // Remove the check once the minimum supported Swift version is 6.4. Until then,
                 // older compilers skip the branch without parsing it.
                 writer.writeLine("#if compiler(>=6.4)")

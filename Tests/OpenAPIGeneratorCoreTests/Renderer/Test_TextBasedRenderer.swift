@@ -107,6 +107,7 @@ final class Test_TextBasedRenderer: XCTestCase {
             [ImportDescription(moduleName: "Foo", accessModifier: .public)],
             renderedBy: TextBasedRenderer.renderImports,
             rendersAs: #"""
+                // swift-format-ignore
                 #if compiler(>=6.4)
                 @diagnose(UnusedImportAccess, as: ignored)
                 #endif
@@ -120,6 +121,7 @@ final class Test_TextBasedRenderer: XCTestCase {
             [ImportDescription(moduleName: "Foo", accessModifier: .package)],
             renderedBy: TextBasedRenderer.renderImports,
             rendersAs: #"""
+                // swift-format-ignore
                 #if compiler(>=6.4)
                 @diagnose(UnusedImportAccess, as: ignored)
                 #endif
@@ -136,6 +138,7 @@ final class Test_TextBasedRenderer: XCTestCase {
             ],
             renderedBy: TextBasedRenderer.renderImports,
             rendersAs: #"""
+                // swift-format-ignore
                 #if compiler(>=6.4)
                 @diagnose(UnusedImportAccess, as: ignored)
                 #endif
@@ -160,6 +163,7 @@ final class Test_TextBasedRenderer: XCTestCase {
             [ImportDescription(moduleName: "Foo", spi: "Secret", accessModifier: .public)],
             renderedBy: TextBasedRenderer.renderImports,
             rendersAs: #"""
+                // swift-format-ignore
                 #if compiler(>=6.4)
                 @diagnose(UnusedImportAccess, as: ignored)
                 #endif
@@ -179,6 +183,7 @@ final class Test_TextBasedRenderer: XCTestCase {
             ],
             renderedBy: TextBasedRenderer.renderImports,
             rendersAs: #"""
+                // swift-format-ignore
                 #if compiler(>=6.4)
                 @diagnose(UnusedImportAccess, as: ignored)
                 #endif
@@ -209,27 +214,33 @@ final class Test_TextBasedRenderer: XCTestCase {
             renderedBy: TextBasedRenderer.renderImports,
             rendersAs: #"""
                 #if canImport(FoundationEssentials)
+                // swift-format-ignore
                 #if compiler(>=6.4)
                 @diagnose(UnusedImportAccess, as: ignored)
                 #endif
                 package import struct FoundationEssentials.URL
+                // swift-format-ignore
                 #if compiler(>=6.4)
                 @diagnose(UnusedImportAccess, as: ignored)
                 #endif
                 package import struct FoundationEssentials.Data
+                // swift-format-ignore
                 #if compiler(>=6.4)
                 @diagnose(UnusedImportAccess, as: ignored)
                 #endif
                 package import struct FoundationEssentials.Date
                 #else
+                // swift-format-ignore
                 #if compiler(>=6.4)
                 @diagnose(UnusedImportAccess, as: ignored)
                 #endif
                 package import struct Foundation.URL
+                // swift-format-ignore
                 #if compiler(>=6.4)
                 @diagnose(UnusedImportAccess, as: ignored)
                 #endif
                 package import struct Foundation.Data
+                // swift-format-ignore
                 #if compiler(>=6.4)
                 @diagnose(UnusedImportAccess, as: ignored)
                 #endif
