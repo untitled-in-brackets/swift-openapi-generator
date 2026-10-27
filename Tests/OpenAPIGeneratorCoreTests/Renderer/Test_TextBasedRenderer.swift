@@ -178,16 +178,25 @@ final class Test_TextBasedRenderer: XCTestCase {
                 ImportDescription(
                     moduleName: "Foundation",
                     moduleTypes: ["struct Foundation.URL"],
-                    accessModifier: .public
+                    accessModifier: .public,
+                    preconcurrency: .onOS(["Linux"])
                 )
             ],
             renderedBy: TextBasedRenderer.renderImports,
             rendersAs: #"""
+                #if os(Linux)
+                // swift-format-ignore
+                #if compiler(>=6.4)
+                @diagnose(UnusedImportAccess, as: ignored)
+                #endif
+                @preconcurrency public import struct Foundation.URL
+                #else
                 // swift-format-ignore
                 #if compiler(>=6.4)
                 @diagnose(UnusedImportAccess, as: ignored)
                 #endif
                 public import struct Foundation.URL
+                #endif
                 """#
         )
     }
@@ -207,6 +216,7 @@ final class Test_TextBasedRenderer: XCTestCase {
                     moduleName: "Foundation",
                     moduleTypes: foundationTypes.map { "struct Foundation.\($0)" },
                     accessModifier: .package,
+                    preconcurrency: .onOS(["Linux"]),
                     conditionalCompilationCondition: condition,
                     isConditionalCompilationElseBranch: true
                 ),
@@ -230,6 +240,23 @@ final class Test_TextBasedRenderer: XCTestCase {
                 #endif
                 package import struct FoundationEssentials.Date
                 #else
+                #if os(Linux)
+                // swift-format-ignore
+                #if compiler(>=6.4)
+                @diagnose(UnusedImportAccess, as: ignored)
+                #endif
+                @preconcurrency package import struct Foundation.URL
+                // swift-format-ignore
+                #if compiler(>=6.4)
+                @diagnose(UnusedImportAccess, as: ignored)
+                #endif
+                @preconcurrency package import struct Foundation.Data
+                // swift-format-ignore
+                #if compiler(>=6.4)
+                @diagnose(UnusedImportAccess, as: ignored)
+                #endif
+                @preconcurrency package import struct Foundation.Date
+                #else
                 // swift-format-ignore
                 #if compiler(>=6.4)
                 @diagnose(UnusedImportAccess, as: ignored)
@@ -245,6 +272,7 @@ final class Test_TextBasedRenderer: XCTestCase {
                 @diagnose(UnusedImportAccess, as: ignored)
                 #endif
                 package import struct Foundation.Date
+                #endif
                 #endif
                 """#
         )

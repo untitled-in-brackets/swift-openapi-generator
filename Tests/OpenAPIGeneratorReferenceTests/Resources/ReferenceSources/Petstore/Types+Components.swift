@@ -4,6 +4,23 @@
 @diagnose(UnusedImportAccess, as: ignored)
 #endif
 @_spi(Generated) public import OpenAPIRuntime
+#if os(Linux)
+// swift-format-ignore
+#if compiler(>=6.4)
+@diagnose(UnusedImportAccess, as: ignored)
+#endif
+@preconcurrency public import struct Foundation.URL
+// swift-format-ignore
+#if compiler(>=6.4)
+@diagnose(UnusedImportAccess, as: ignored)
+#endif
+@preconcurrency public import struct Foundation.Data
+// swift-format-ignore
+#if compiler(>=6.4)
+@diagnose(UnusedImportAccess, as: ignored)
+#endif
+@preconcurrency public import struct Foundation.Date
+#else
 // swift-format-ignore
 #if compiler(>=6.4)
 @diagnose(UnusedImportAccess, as: ignored)
@@ -19,5 +36,6 @@ public import struct Foundation.Data
 @diagnose(UnusedImportAccess, as: ignored)
 #endif
 public import struct Foundation.Date
+#endif
 /// Types generated from the components section of the OpenAPI document.
 public enum Components {}

@@ -188,22 +188,37 @@ struct TextBasedRenderer: RendererProtocol {
         }
         let spiPrefix = description.spi.map { "@_spi(\($0)) " } ?? ""
 
-        func render(importing name: String) {
-            if description.ignoresUnusedImportAccess {
-                writer.writeLine("// swift-format-ignore")
-                // Remove the check once the minimum supported Swift version is 6.4. Until then,
-                // older compilers skip the branch without parsing it.
-                writer.writeLine("#if compiler(>=6.4)")
-                writer.writeLine("@diagnose(UnusedImportAccess, as: ignored)")
-                writer.writeLine("#endif")
+        func render(preconcurrency: Bool) {
+            let preconcurrencyPrefix = preconcurrency ? "@preconcurrency " : ""
+
+            func render(importing name: String) {
+                if description.ignoresUnusedImportAccess {
+                    writer.writeLine("// swift-format-ignore")
+                    // Remove the check once the minimum supported Swift version is 6.4. Until then,
+                    // older compilers skip the branch without parsing it.
+                    writer.writeLine("#if compiler(>=6.4)")
+                    writer.writeLine("@diagnose(UnusedImportAccess, as: ignored)")
+                    writer.writeLine("#endif")
+                }
+                writer.writeLine("\(preconcurrencyPrefix)\(spiPrefix)\(accessModifierPrefix)import \(name)")
             }
-            writer.writeLine("\(spiPrefix)\(accessModifierPrefix)import \(name)")
+
+            if let moduleTypes = description.moduleTypes {
+                moduleTypes.forEach(render(importing:))
+            } else {
+                render(importing: description.moduleName)
+            }
         }
 
-        if let moduleTypes = description.moduleTypes {
-            moduleTypes.forEach(render(importing:))
-        } else {
-            render(importing: description.moduleName)
+        switch description.preconcurrency {
+        case .always: render(preconcurrency: true)
+        case .never: render(preconcurrency: false)
+        case .onOS(let operatingSystems):
+            writer.writeLine("#if \(operatingSystems.map { "os(\($0))" }.joined(separator: " || "))")
+            render(preconcurrency: true)
+            writer.writeLine("#else")
+            render(preconcurrency: false)
+            writer.writeLine("#endif")
         }
     }
 

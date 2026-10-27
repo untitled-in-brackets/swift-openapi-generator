@@ -47,6 +47,16 @@ struct ImportDescription: Equatable, Codable {
     /// `public import` or `package import` is not incorrectly emitted.
     var setsAccessModifier: Bool = true
 
+    /// Requirements for the `@preconcurrency` attribute.
+    var preconcurrency: PreconcurrencyRequirement = .never
+
+    /// Describes when the `@preconcurrency` attribute is required.
+    enum PreconcurrencyRequirement: Equatable, Codable {
+        case always
+        case never
+        case onOS([String])
+    }
+
     /// The condition for an adjacent group of conditional imports.
     var conditionalCompilationCondition: String? = nil
 

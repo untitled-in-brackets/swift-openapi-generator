@@ -57,7 +57,8 @@ enum Constants {
             let foundationTypes = ["URL", "Data", "Date"]
             let foundationImports = ImportDescription(
                 moduleName: "Foundation",
-                moduleTypes: foundationTypes.map { "struct Foundation.\($0)" }
+                moduleTypes: foundationTypes.map { "struct Foundation.\($0)" },
+                preconcurrency: .onOS(["Linux"])
             )
             guard preferFoundationEssentials else { return [runtimeImport, foundationImports] }
             return [
@@ -70,6 +71,7 @@ enum Constants {
                 ImportDescription(
                     moduleName: "Foundation",
                     moduleTypes: foundationTypes.map { "struct Foundation.\($0)" },
+                    preconcurrency: .onOS(["Linux"]),
                     conditionalCompilationCondition: "canImport(FoundationEssentials)",
                     isConditionalCompilationElseBranch: true
                 ),
