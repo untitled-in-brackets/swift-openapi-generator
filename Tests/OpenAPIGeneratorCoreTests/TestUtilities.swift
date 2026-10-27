@@ -31,7 +31,8 @@ class Test_Core: XCTestCase {
         namingStrategy: NamingStrategy = .defensive,
         nameOverrides: [String: String] = [:],
         schemaOverrides: [String: String] = [:],
-        featureFlags: FeatureFlags = []
+        featureFlags: FeatureFlags = [],
+        foundationModule: FoundationModule = .foundation
     ) -> TypesFileTranslator {
         makeTypesTranslator(
             components: components,
@@ -39,7 +40,8 @@ class Test_Core: XCTestCase {
             namingStrategy: namingStrategy,
             nameOverrides: nameOverrides,
             schemaOverrides: schemaOverrides,
-            featureFlags: featureFlags
+            featureFlags: featureFlags,
+            foundationModule: foundationModule
         )
     }
 
@@ -49,14 +51,16 @@ class Test_Core: XCTestCase {
         namingStrategy: NamingStrategy = .defensive,
         nameOverrides: [String: String] = [:],
         schemaOverrides: [String: String] = [:],
-        featureFlags: FeatureFlags = []
+        featureFlags: FeatureFlags = [],
+        foundationModule: FoundationModule = .foundation
     ) -> TypesFileTranslator {
         TypesFileTranslator(
             config: makeConfig(
                 namingStrategy: namingStrategy,
                 nameOverrides: nameOverrides,
                 schemaOverrides: schemaOverrides,
-                featureFlags: featureFlags
+                featureFlags: featureFlags,
+                foundationModule: foundationModule
             ),
             diagnostics: diagnostics,
             components: components
@@ -67,12 +71,14 @@ class Test_Core: XCTestCase {
         namingStrategy: NamingStrategy = .defensive,
         nameOverrides: [String: String] = [:],
         schemaOverrides: [String: String] = [:],
-        featureFlags: FeatureFlags = []
+        featureFlags: FeatureFlags = [],
+        foundationModule: FoundationModule = .foundation
     ) -> Config {
         .init(
             mode: .types,
             access: Config.defaultAccessModifier,
             namingStrategy: namingStrategy,
+            foundationModule: foundationModule,
             nameOverrides: nameOverrides,
             typeOverrides: TypeOverrides(schemas: schemaOverrides),
             featureFlags: featureFlags

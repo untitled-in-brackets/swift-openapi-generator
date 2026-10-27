@@ -39,6 +39,9 @@ package struct _UserConfig: Codable {
     /// The strategy to use for naming generated Swift types and members.
     package var namingStrategy: NamingStrategy?
 
+    /// The Foundation module imported by generated code.
+    package var foundationModule: FoundationModule?
+
     /// A dictionary of name overrides for generated types and members.
     ///
     /// Any names not included use the `namingStrategy` to compute a Swift name.
@@ -59,6 +62,7 @@ package struct _UserConfig: Codable {
     ///   - additionalFileComments: A list of additional comments that are added to the top of every generated Swift file.
     ///   - filter: Filter to apply to the OpenAPI document before generation.
     ///   - namingStrategy: The strategy to use for naming generated Swift types and members.
+    ///   - foundationModule: The Foundation module imported by generated code.
     ///   - nameOverrides: A dictionary of name overrides for generated types and members.
     ///   - typeOverrides: A dictionary of overrides for replacing the types of generated with manually provided types.
     ///   - featureFlags: A set of features to explicitly enable.
@@ -69,6 +73,7 @@ package struct _UserConfig: Codable {
         additionalFileComments: [String]? = nil,
         filter: DocumentFilter? = nil,
         namingStrategy: NamingStrategy? = nil,
+        foundationModule: FoundationModule? = nil,
         nameOverrides: [String: String]? = nil,
         typeOverrides: TypeOverrides? = nil,
         featureFlags: FeatureFlags? = nil
@@ -79,6 +84,7 @@ package struct _UserConfig: Codable {
         self.additionalFileComments = additionalFileComments
         self.filter = filter
         self.namingStrategy = namingStrategy
+        self.foundationModule = foundationModule
         self.nameOverrides = nameOverrides
         self.typeOverrides = typeOverrides
         self.featureFlags = featureFlags
@@ -93,6 +99,7 @@ package struct _UserConfig: Codable {
         case additionalImports
         case additionalFileComments
         case filter
+        case foundationModule
         case namingStrategy
         case nameOverrides
         case typeOverrides

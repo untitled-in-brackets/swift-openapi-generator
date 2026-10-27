@@ -81,7 +81,7 @@ extension FileTranslator {
             upstream: safeNameGenerator,
             overrides: config.nameOverrides
         )
-        return TranslatorContext(safeNameGenerator: overridingGenerator)
+        return TranslatorContext(safeNameGenerator: overridingGenerator, foundationModule: config.foundationModule)
     }
 
     /// Creates a top comment that includes the default "do not modify" comment
@@ -121,4 +121,11 @@ struct TranslatorContext {
 
     /// A type that generates safe names for use as Swift identifiers.
     var safeNameGenerator: any SafeNameGenerator
+
+    /// The Foundation module used in generated type names.
+    var foundationModule: FoundationModule = .foundation
+
+    var date: TypeName { .foundation("Date", module: foundationModule) }
+
+    var url: TypeName { .foundation("URL", module: foundationModule) }
 }

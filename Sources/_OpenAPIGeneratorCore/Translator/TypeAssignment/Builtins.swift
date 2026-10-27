@@ -26,11 +26,14 @@ extension TypeName {
     /// - Returns: A TypeName representing the specified type within the Swift module.
     static func swift(_ name: String) -> TypeName { TypeName(swiftKeyPath: ["Swift", name]) }
 
-    /// Returns a type name for a type with the specified name in the
-    /// Foundation module.
-    /// - Parameter name: The name of the type.
-    /// - Returns: A TypeName representing the specified type within the Foundation module.
-    static func foundation(_ name: String) -> TypeName { TypeName(swiftKeyPath: ["Foundation", name]) }
+    /// Returns a type name for a type with the specified name in the given module.
+    /// - Parameters:
+    ///   - name: The name of the type.
+    ///   - module: The module containing the type.
+    /// - Returns: A type name representing the specified type.
+    static func foundation(_ name: String, module: FoundationModule = .foundation) -> TypeName {
+        TypeName(swiftKeyPath: [module.rawValue, name])
+    }
 
     /// Returns a type name for a type with the specified name in the
     /// OpenAPIRuntime module.
@@ -43,12 +46,6 @@ extension TypeName {
     /// - Parameter name: The name of the type.
     /// - Returns: A TypeName representing the type with the given name in the HTTPTypes module.
     static func httpTypes(_ name: String) -> TypeName { TypeName(swiftKeyPath: [Constants.Import.httpTypes, name]) }
-
-    /// Returns the type name for the Date type.
-    static var date: Self { .foundation("Date") }
-
-    /// Returns the type name for the URL type.
-    static var url: Self { .foundation("URL") }
 
     /// Returns the type name for the DecodingError type.
     static var decodingError: Self { .swift("DecodingError") }

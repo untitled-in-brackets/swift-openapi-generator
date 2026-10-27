@@ -161,6 +161,20 @@
         }
       ]
     },
+    "foundationModule": {
+      "description": "The Foundation module imported by generated code.",
+      "oneOf": [
+        {
+          "const": "Foundation",
+          "description": "Imports the Foundation module."
+        },
+        {
+          "const": "FoundationEssentials",
+          "description": "Imports the FoundationEssentials module."
+        }
+      ],
+      "default": "Foundation"
+    },
     "namingStrategy": {
       "description": "The strategy for converting OpenAPI identifiers into Swift identifiers.",
       "oneOf": [

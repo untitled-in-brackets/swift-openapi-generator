@@ -17,6 +17,16 @@ import OpenAPIKit
 
 final class Test_Config: Test_Core {
     func testDefaultAccessModifier() { XCTAssertEqual(Config.defaultAccessModifier, .internal) }
+    func testDefaultFoundationModule() { XCTAssertEqual(Config.defaultFoundationModule, .foundation) }
+    func testFoundationModule() {
+        let config = Config(
+            mode: .types,
+            access: .public,
+            namingStrategy: .defensive,
+            foundationModule: .foundationEssentials
+        )
+        XCTAssertEqual(config.foundationModule, .foundationEssentials)
+    }
     func testAdditionalFileComments() {
         let config = Config(
             mode: .types,
