@@ -161,11 +161,6 @@
         }
       ]
     },
-    "preferFoundationEssentials": {
-      "description": "When true, generated code imports FoundationEssentials when available and falls back to Foundation otherwise.",
-      "type": "boolean",
-      "default": false
-    },
     "namingStrategy": {
       "description": "The strategy for converting OpenAPI identifiers into Swift identifiers.",
       "oneOf": [

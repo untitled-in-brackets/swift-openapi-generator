@@ -4,6 +4,23 @@
 @diagnose(UnusedImportAccess, as: ignored)
 #endif
 @_spi(Generated) public import OpenAPIRuntime
+#if canImport(FoundationEssentials)
+// swift-format-ignore
+#if compiler(>=6.4)
+@diagnose(UnusedImportAccess, as: ignored)
+#endif
+public import struct FoundationEssentials.URL
+// swift-format-ignore
+#if compiler(>=6.4)
+@diagnose(UnusedImportAccess, as: ignored)
+#endif
+public import struct FoundationEssentials.Data
+// swift-format-ignore
+#if compiler(>=6.4)
+@diagnose(UnusedImportAccess, as: ignored)
+#endif
+public import struct FoundationEssentials.Date
+#else
 #if os(Linux)
 // swift-format-ignore
 #if compiler(>=6.4)
@@ -36,6 +53,7 @@ public import struct Foundation.Data
 @diagnose(UnusedImportAccess, as: ignored)
 #endif
 public import struct Foundation.Date
+#endif
 #endif
 extension Components {
     /// Types generated from the `#/components/schemas` section of the OpenAPI document.
@@ -115,7 +133,7 @@ extension Components {
         /// - Remark: Generated from `#/components/schemas/MixedAnyOf`.
         public struct MixedAnyOf: Codable, Hashable, Sendable {
             /// - Remark: Generated from `#/components/schemas/MixedAnyOf/value1`.
-            public var value1: Foundation.Date?
+            public var value1: Date?
             /// - Remark: Generated from `#/components/schemas/MixedAnyOf/value2`.
             public var value2: Components.Schemas.PetKind?
             /// - Remark: Generated from `#/components/schemas/MixedAnyOf/value3`.
@@ -130,7 +148,7 @@ extension Components {
             ///   - value3:
             ///   - value4:
             public init(
-                value1: Foundation.Date? = nil,
+                value1: Date? = nil,
                 value2: Components.Schemas.PetKind? = nil,
                 value3: Components.Schemas.Pet? = nil,
                 value4: Swift.String? = nil
@@ -186,7 +204,7 @@ extension Components {
         /// - Remark: Generated from `#/components/schemas/MixedOneOf`.
         @frozen public enum MixedOneOf: Codable, Hashable, Sendable {
             /// - Remark: Generated from `#/components/schemas/MixedOneOf/case1`.
-            case case1(Foundation.Date)
+            case case1(Date)
             /// - Remark: Generated from `#/components/schemas/MixedOneOf/case2`.
             case PetKind(Components.Schemas.PetKind)
             /// - Remark: Generated from `#/components/schemas/MixedOneOf/case3`.
@@ -231,7 +249,7 @@ extension Components {
         /// - Remark: Generated from `#/components/schemas/MixedAllOfPrimitive`.
         public struct MixedAllOfPrimitive: Codable, Hashable, Sendable {
             /// - Remark: Generated from `#/components/schemas/MixedAllOfPrimitive/value1`.
-            public var value1: Foundation.Date
+            public var value1: Date
             /// - Remark: Generated from `#/components/schemas/MixedAllOfPrimitive/value2`.
             public var value2: Swift.String
             /// Creates a new `MixedAllOfPrimitive`.
@@ -240,7 +258,7 @@ extension Components {
             ///   - value1:
             ///   - value2:
             public init(
-                value1: Foundation.Date,
+                value1: Date,
                 value2: Swift.String
             ) {
                 self.value1 = value1
@@ -363,7 +381,7 @@ extension Components {
             }
         }
         /// - Remark: Generated from `#/components/schemas/DOB`.
-        public typealias Dob = Foundation.Date
+        public typealias Dob = Date
         /// - Remark: Generated from `#/components/schemas/ExtraInfo`.
         public typealias ExtraInfo = Swift.String
         /// - Remark: Generated from `#/components/schemas/NoAdditionalProperties`.

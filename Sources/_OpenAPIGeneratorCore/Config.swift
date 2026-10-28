@@ -56,14 +56,8 @@ public struct Config: Sendable {
     /// Defaults to `defensive`.
     public var namingStrategy: NamingStrategy
 
-    /// Whether to prefer FoundationEssentials when it is available.
-    public var preferFoundationEssentials: Bool
-
     /// The default naming strategy.
     public static let defaultNamingStrategy: NamingStrategy = .defensive
-
-    /// The default preference for FoundationEssentials.
-    public static let defaultPreferFoundationEssentials: Bool = false
 
     /// A map of OpenAPI identifiers to desired Swift identifiers, used instead of the naming strategy.
     public var nameOverrides: [String: String]
@@ -82,7 +76,6 @@ public struct Config: Sendable {
     ///   - filter: Filter to apply to the OpenAPI document before generation.
     ///   - namingStrategy: The naming strategy to use for deriving Swift identifiers from OpenAPI identifiers.
     ///     Defaults to `defensive`.
-    ///   - preferFoundationEssentials: Whether to prefer FoundationEssentials when it is available.
     ///   - nameOverrides: A map of OpenAPI identifiers to desired Swift identifiers, used instead
     ///     of the naming strategy.
     ///   - typeOverrides: A map of OpenAPI schema names to desired custom type names.
@@ -94,7 +87,6 @@ public struct Config: Sendable {
         additionalFileComments: [String] = [],
         filter: DocumentFilter? = nil,
         namingStrategy: NamingStrategy,
-        preferFoundationEssentials: Bool = defaultPreferFoundationEssentials,
         nameOverrides: [String: String] = [:],
         typeOverrides: TypeOverrides = .init(),
         featureFlags: FeatureFlags = []
@@ -105,7 +97,6 @@ public struct Config: Sendable {
         self.additionalFileComments = additionalFileComments
         self.filter = filter
         self.namingStrategy = namingStrategy
-        self.preferFoundationEssentials = preferFoundationEssentials
         self.nameOverrides = nameOverrides
         self.typeOverrides = typeOverrides
         self.featureFlags = featureFlags

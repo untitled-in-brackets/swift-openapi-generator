@@ -17,11 +17,6 @@ import OpenAPIKit
 
 final class Test_Config: Test_Core {
     func testDefaultAccessModifier() { XCTAssertEqual(Config.defaultAccessModifier, .internal) }
-    func testDefaultPreferFoundationEssentials() { XCTAssertFalse(Config.defaultPreferFoundationEssentials) }
-    func testPreferFoundationEssentials() {
-        let config = Config(mode: .types, access: .public, namingStrategy: .defensive, preferFoundationEssentials: true)
-        XCTAssertTrue(config.preferFoundationEssentials)
-    }
     func testAdditionalFileComments() {
         let config = Config(
             mode: .types,

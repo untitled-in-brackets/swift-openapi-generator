@@ -4,6 +4,23 @@
 @diagnose(UnusedImportAccess, as: ignored)
 #endif
 @_spi(Generated) public import OpenAPIRuntime
+#if canImport(FoundationEssentials)
+// swift-format-ignore
+#if compiler(>=6.4)
+@diagnose(UnusedImportAccess, as: ignored)
+#endif
+public import struct FoundationEssentials.URL
+// swift-format-ignore
+#if compiler(>=6.4)
+@diagnose(UnusedImportAccess, as: ignored)
+#endif
+public import struct FoundationEssentials.Data
+// swift-format-ignore
+#if compiler(>=6.4)
+@diagnose(UnusedImportAccess, as: ignored)
+#endif
+public import struct FoundationEssentials.Date
+#else
 #if os(Linux)
 // swift-format-ignore
 #if compiler(>=6.4)
@@ -36,6 +53,7 @@ public import struct Foundation.Data
 @diagnose(UnusedImportAccess, as: ignored)
 #endif
 public import struct Foundation.Date
+#endif
 #endif
 extension Components {
     /// Types generated from the `#/components/responses` section of the OpenAPI document.
@@ -152,12 +170,12 @@ extension Components {
                         /// - Remark: Generated from `#/components/responses/MultipartDownloadTypedResponse/content/multipartForm/metadata/content/body`.
                         public struct BodyPayload: Codable, Hashable, Sendable {
                             /// - Remark: Generated from `#/components/responses/MultipartDownloadTypedResponse/content/multipartForm/metadata/content/body/createdAt`.
-                            public var createdAt: Foundation.Date
+                            public var createdAt: Date
                             /// Creates a new `BodyPayload`.
                             ///
                             /// - Parameters:
                             ///   - createdAt:
-                            public init(createdAt: Foundation.Date) {
+                            public init(createdAt: Date) {
                                 self.createdAt = createdAt
                             }
                             public enum CodingKeys: String, CodingKey {

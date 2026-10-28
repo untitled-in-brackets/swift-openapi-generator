@@ -4,6 +4,23 @@
 @diagnose(UnusedImportAccess, as: ignored)
 #endif
 @_spi(Generated) public import OpenAPIRuntime
+#if canImport(FoundationEssentials)
+// swift-format-ignore
+#if compiler(>=6.4)
+@diagnose(UnusedImportAccess, as: ignored)
+#endif
+public import struct FoundationEssentials.URL
+// swift-format-ignore
+#if compiler(>=6.4)
+@diagnose(UnusedImportAccess, as: ignored)
+#endif
+public import struct FoundationEssentials.Data
+// swift-format-ignore
+#if compiler(>=6.4)
+@diagnose(UnusedImportAccess, as: ignored)
+#endif
+public import struct FoundationEssentials.Date
+#else
 #if os(Linux)
 // swift-format-ignore
 #if compiler(>=6.4)
@@ -37,6 +54,7 @@ public import struct Foundation.Data
 #endif
 public import struct Foundation.Date
 #endif
+#endif
 import HTTPTypes
 /// Service for managing pet metadata.
 ///
@@ -53,7 +71,7 @@ public struct Client: APIProtocol {
     ///   - transport: A transport that performs HTTP operations.
     ///   - middlewares: A list of middlewares to call before the transport.
     public init(
-        serverURL: Foundation.URL,
+        serverURL: URL,
         configuration: Configuration = .init(),
         transport: any ClientTransport,
         middlewares: [any ClientMiddleware] = []

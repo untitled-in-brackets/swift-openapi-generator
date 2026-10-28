@@ -34,7 +34,6 @@ extension _GenerateOptions {
         let resolvedAdditionalImports = resolvedAdditionalImports(config)
         let resolvedAdditionalFileComments = resolvedAdditionalFileComments(config)
         let resolvedNamingStragy = resolvedNamingStrategy(config)
-        let resolvedPreferFoundationEssentials = resolvedPreferFoundationEssentials(config)
         let resolvedNameOverrides = resolvedNameOverrides(config)
         let resolvedTypeOverrides = resolvedTypeOverrides(config)
         let resolvedFeatureFlags = resolvedFeatureFlags(config)
@@ -46,7 +45,6 @@ extension _GenerateOptions {
                 additionalFileComments: resolvedAdditionalFileComments,
                 filter: config?.filter,
                 namingStrategy: resolvedNamingStragy,
-                preferFoundationEssentials: resolvedPreferFoundationEssentials,
                 nameOverrides: resolvedNameOverrides,
                 typeOverrides: resolvedTypeOverrides,
                 featureFlags: resolvedFeatureFlags
@@ -62,7 +60,6 @@ extension _GenerateOptions {
             - Generator modes: \(sortedModes.map(\.rawValue).joined(separator: ", "))
             - Access modifier: \(resolvedAccessModifier.rawValue)
             - Naming strategy: \(resolvedNamingStragy.rawValue)
-            - Prefer FoundationEssentials: \(resolvedPreferFoundationEssentials)
             - Name overrides: \(resolvedNameOverrides.isEmpty ? "<none>" : resolvedNameOverrides
                 .sorted(by: { $0.key < $1.key })
                 .map { "\"\($0.key)\"->\"\($0.value)\"" }.joined(separator: ", "))

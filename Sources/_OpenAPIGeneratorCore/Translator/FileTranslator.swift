@@ -82,8 +82,7 @@ extension FileTranslator {
             overrides: config.nameOverrides
         )
         return TranslatorContext(
-            safeNameGenerator: overridingGenerator,
-            preferFoundationEssentials: config.preferFoundationEssentials
+            safeNameGenerator: overridingGenerator
         )
     }
 
@@ -125,10 +124,7 @@ struct TranslatorContext {
     /// A type that generates safe names for use as Swift identifiers.
     var safeNameGenerator: any SafeNameGenerator
 
-    /// Whether generated Foundation types are referenced without a module qualifier.
-    var preferFoundationEssentials: Bool = false
+    var date: TypeName { .foundation("Date", unqualified: true) }
 
-    var date: TypeName { .foundation("Date", unqualified: preferFoundationEssentials) }
-
-    var url: TypeName { .foundation("URL", unqualified: preferFoundationEssentials) }
+    var url: TypeName { .foundation("URL", unqualified: true) }
 }

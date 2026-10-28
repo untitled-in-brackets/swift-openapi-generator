@@ -38,9 +38,6 @@ struct _GenerateOptions: ParsableArguments {
             "The strategy for converting OpenAPI names into Swift names. Default: \(Config.defaultNamingStrategy.rawValue)"
     ) var namingStrategy: NamingStrategy?
 
-    @Flag(name: .long, help: "Prefer FoundationEssentials when available, falling back to Foundation.")
-    var preferFoundationEssentials = false
-
     @Option(help: "Additional import to add to all generated files.") var additionalImport: [String] = []
 
     @Option(help: "Additional file comment to add to all generated files.") var additionalFileComment: [String] = []
@@ -140,11 +137,6 @@ extension _GenerateOptions {
     func resolvedNamingStrategy(_ config: _UserConfig?) -> NamingStrategy {
         if let namingStrategy { return namingStrategy }
         return config?.namingStrategy ?? Config.defaultNamingStrategy
-    }
-
-    /// Returns whether the user prefers FoundationEssentials when available.
-    func resolvedPreferFoundationEssentials(_ config: _UserConfig?) -> Bool {
-        preferFoundationEssentials || (config?.preferFoundationEssentials ?? Config.defaultPreferFoundationEssentials)
     }
 
     /// Returns the name overrides requested by the user.

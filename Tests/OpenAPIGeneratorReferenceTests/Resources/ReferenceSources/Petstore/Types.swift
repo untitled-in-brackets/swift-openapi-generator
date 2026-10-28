@@ -4,6 +4,23 @@
 @diagnose(UnusedImportAccess, as: ignored)
 #endif
 @_spi(Generated) public import OpenAPIRuntime
+#if canImport(FoundationEssentials)
+// swift-format-ignore
+#if compiler(>=6.4)
+@diagnose(UnusedImportAccess, as: ignored)
+#endif
+public import struct FoundationEssentials.URL
+// swift-format-ignore
+#if compiler(>=6.4)
+@diagnose(UnusedImportAccess, as: ignored)
+#endif
+public import struct FoundationEssentials.Data
+// swift-format-ignore
+#if compiler(>=6.4)
+@diagnose(UnusedImportAccess, as: ignored)
+#endif
+public import struct FoundationEssentials.Date
+#else
 #if os(Linux)
 // swift-format-ignore
 #if compiler(>=6.4)
@@ -36,6 +53,7 @@ public import struct Foundation.Data
 @diagnose(UnusedImportAccess, as: ignored)
 #endif
 public import struct Foundation.Date
+#endif
 #endif
 /// A type that performs HTTP operations defined by the OpenAPI document.
 public protocol APIProtocol: Sendable {
@@ -184,8 +202,8 @@ public enum Servers {
     /// Example Petstore implementation service
     public enum Server1 {
         /// Example Petstore implementation service
-        public static func url() throws -> Foundation.URL {
-            try Foundation.URL(
+        public static func url() throws -> URL {
+            try URL(
                 validatingOpenAPIServerURL: "https://example.com/api",
                 variables: []
             )
@@ -193,23 +211,23 @@ public enum Servers {
     }
     /// Example Petstore implementation service
     @available(*, deprecated, renamed: "Servers.Server1.url")
-    public static func server1() throws -> Foundation.URL {
-        try Foundation.URL(
+    public static func server1() throws -> URL {
+        try URL(
             validatingOpenAPIServerURL: "https://example.com/api",
             variables: []
         )
     }
     public enum Server2 {
-        public static func url() throws -> Foundation.URL {
-            try Foundation.URL(
+        public static func url() throws -> URL {
+            try URL(
                 validatingOpenAPIServerURL: "/api",
                 variables: []
             )
         }
     }
     @available(*, deprecated, renamed: "Servers.Server2.url")
-    public static func server2() throws -> Foundation.URL {
-        try Foundation.URL(
+    public static func server2() throws -> URL {
+        try URL(
             validatingOpenAPIServerURL: "/api",
             variables: []
         )
@@ -233,8 +251,8 @@ public enum Servers {
             subdomain: Swift.String = "test",
             port: Port = ._443,
             basePath: Swift.String = "v1"
-        ) throws -> Foundation.URL {
-            try Foundation.URL(
+        ) throws -> URL {
+            try URL(
                 validatingOpenAPIServerURL: "{protocol}://{subdomain}.example.com:{port}/{basePath}",
                 variables: [
                     .init(
@@ -270,8 +288,8 @@ public enum Servers {
         subdomain: Swift.String = "test",
         port: Swift.String = "443",
         basePath: Swift.String = "v1"
-    ) throws -> Foundation.URL {
-        try Foundation.URL(
+    ) throws -> URL {
+        try URL(
             validatingOpenAPIServerURL: "{protocol}://{subdomain}.example.com:{port}/{basePath}",
             variables: [
                 .init(

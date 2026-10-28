@@ -4,6 +4,23 @@
 @diagnose(UnusedImportAccess, as: ignored)
 #endif
 @_spi(Generated) public import OpenAPIRuntime
+#if canImport(FoundationEssentials)
+// swift-format-ignore
+#if compiler(>=6.4)
+@diagnose(UnusedImportAccess, as: ignored)
+#endif
+public import struct FoundationEssentials.URL
+// swift-format-ignore
+#if compiler(>=6.4)
+@diagnose(UnusedImportAccess, as: ignored)
+#endif
+public import struct FoundationEssentials.Data
+// swift-format-ignore
+#if compiler(>=6.4)
+@diagnose(UnusedImportAccess, as: ignored)
+#endif
+public import struct FoundationEssentials.Date
+#else
 #if os(Linux)
 // swift-format-ignore
 #if compiler(>=6.4)
@@ -37,6 +54,7 @@ public import struct Foundation.Data
 #endif
 public import struct Foundation.Date
 #endif
+#endif
 import HTTPTypes
 extension APIProtocol {
     /// Registers each operation handler with the provided transport.
@@ -48,7 +66,7 @@ extension APIProtocol {
     ///   - middlewares: A list of middlewares to call before the handler.
     public func registerHandlers(
         on transport: any ServerTransport,
-        serverURL: Foundation.URL = .defaultOpenAPIServerURL,
+        serverURL: URL = .defaultOpenAPIServerURL,
         configuration: Configuration = .init(),
         middlewares: [any ServerMiddleware] = []
     ) throws {

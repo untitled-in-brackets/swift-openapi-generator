@@ -32,9 +32,7 @@ struct ServerFileTranslator: FileTranslator {
 
         let topComment = self.topComment
 
-        let imports = importDescriptions(
-            adding: Constants.File.clientServerImports(preferFoundationEssentials: config.preferFoundationEssentials)
-        )
+        let imports = importDescriptions(adding: Constants.File.clientServerImports())
 
         let allOperations = try OperationDescription.all(from: doc.paths, in: components, context: context)
 

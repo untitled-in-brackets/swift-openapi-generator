@@ -29,13 +29,9 @@ final class Test_ConfigJSONSchema: XCTestCase {
         XCTAssertEqual(allowedValues(properties["generate"]?["items"]), Set(GeneratorMode.allCases.map(\.rawValue)))
         XCTAssertEqual(allowedValues(properties["featureFlags"]?["items"]), Set(FeatureFlag.allCases.map(\.rawValue)))
         XCTAssertEqual(allowedValues(properties["accessModifier"]), Set(AccessModifier.supportedValues.map(\.rawValue)))
-        XCTAssertEqual(properties["preferFoundationEssentials"]?["type"] as? String, "boolean")
+        XCTAssertNil(properties["preferFoundationEssentials"])
         XCTAssertEqual(allowedValues(properties["namingStrategy"]), Set(NamingStrategy.allCases.map(\.rawValue)))
         XCTAssertEqual(properties["accessModifier"]?["default"] as? String, Config.defaultAccessModifier.rawValue)
-        XCTAssertEqual(
-            properties["preferFoundationEssentials"]?["default"] as? Bool,
-            Config.defaultPreferFoundationEssentials
-        )
         XCTAssertEqual(properties["namingStrategy"]?["default"] as? String, Config.defaultNamingStrategy.rawValue)
 
         func nestedKeys(_ key: String) -> Set<String>? {

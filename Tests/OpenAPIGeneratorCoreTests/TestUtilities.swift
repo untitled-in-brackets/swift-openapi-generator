@@ -31,8 +31,7 @@ class Test_Core: XCTestCase {
         namingStrategy: NamingStrategy = .defensive,
         nameOverrides: [String: String] = [:],
         schemaOverrides: [String: String] = [:],
-        featureFlags: FeatureFlags = [],
-        preferFoundationEssentials: Bool = false
+        featureFlags: FeatureFlags = []
     ) -> TypesFileTranslator {
         makeTypesTranslator(
             components: components,
@@ -40,8 +39,7 @@ class Test_Core: XCTestCase {
             namingStrategy: namingStrategy,
             nameOverrides: nameOverrides,
             schemaOverrides: schemaOverrides,
-            featureFlags: featureFlags,
-            preferFoundationEssentials: preferFoundationEssentials
+            featureFlags: featureFlags
         )
     }
 
@@ -51,16 +49,14 @@ class Test_Core: XCTestCase {
         namingStrategy: NamingStrategy = .defensive,
         nameOverrides: [String: String] = [:],
         schemaOverrides: [String: String] = [:],
-        featureFlags: FeatureFlags = [],
-        preferFoundationEssentials: Bool = false
+        featureFlags: FeatureFlags = []
     ) -> TypesFileTranslator {
         TypesFileTranslator(
             config: makeConfig(
                 namingStrategy: namingStrategy,
                 nameOverrides: nameOverrides,
                 schemaOverrides: schemaOverrides,
-                featureFlags: featureFlags,
-                preferFoundationEssentials: preferFoundationEssentials
+                featureFlags: featureFlags
             ),
             diagnostics: diagnostics,
             components: components
@@ -71,14 +67,12 @@ class Test_Core: XCTestCase {
         namingStrategy: NamingStrategy = .defensive,
         nameOverrides: [String: String] = [:],
         schemaOverrides: [String: String] = [:],
-        featureFlags: FeatureFlags = [],
-        preferFoundationEssentials: Bool = false
+        featureFlags: FeatureFlags = []
     ) -> Config {
         .init(
             mode: .types,
             access: Config.defaultAccessModifier,
             namingStrategy: namingStrategy,
-            preferFoundationEssentials: preferFoundationEssentials,
             nameOverrides: nameOverrides,
             typeOverrides: TypeOverrides(schemas: schemaOverrides),
             featureFlags: featureFlags
